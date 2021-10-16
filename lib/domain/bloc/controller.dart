@@ -424,9 +424,10 @@ class VideoEditorController extends ChangeNotifier {
     String? customInstruction,
     void Function(Statistics)? onProgress,
     VideoExportPreset preset = VideoExportPreset.none,
+    String? outPath,
   }) async {
     final FlutterFFmpegConfig _config = FlutterFFmpegConfig();
-    final String tempPath = (await getTemporaryDirectory()).path;
+    final String tempPath = (outPath?.isEmpty ?? true) ? (await getTemporaryDirectory()).path : (outPath ?? '');
     final String videoPath = file.path;
     if (name == null) name = path.basename(videoPath).split('.')[0];
     final String outputPath = tempPath + name + ".$format";
@@ -534,9 +535,10 @@ class VideoEditorController extends ChangeNotifier {
     String? name,
     double scale = 1.0,
     void Function(Statistics)? onProgress,
+    String? outPath,
   }) async {
     final FlutterFFmpegConfig _config = FlutterFFmpegConfig();
-    final String tempPath = (await getTemporaryDirectory()).path;
+    final String tempPath = (outPath?.isEmpty ?? true) ? (await getTemporaryDirectory()).path : (outPath ?? '');
     final String videoPath = file.path;
     if (name == null) name = path.basename(videoPath).split('.')[0];
     final String outputPath = tempPath + name + ".jpg";
